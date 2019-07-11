@@ -1,6 +1,6 @@
 require "dotenv/load"
 require "slack-ruby-bot"
-require_relative "config/initializers/rom"
+require_relative "app/repositories/candidates_repository"
 
 class PongBot < SlackRubyBot::Bot
   command 'ping' do |client, data, match|

@@ -1,4 +1,4 @@
 require "rom"
 require "rom-sql"
 
-ROM.container(:sql, ENV.fetch("DATABASE_URL"))
+$rom ||= ROM.container(:sql, ENV.fetch("DATABASE_URL"))
