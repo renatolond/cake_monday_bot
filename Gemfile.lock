@@ -67,6 +67,7 @@ GEM
     pry-byebug (3.7.0)
       byebug (~> 11.0)
       pry (~> 0.10)
+    rake (12.3.2)
     rom (5.0.2)
       rom-changeset (~> 5.0, >= 5.0.1)
       rom-core (~> 5.0, >= 5.0.2)
@@ -123,6 +124,7 @@ DEPENDENCIES
   dotenv
   pg
   pry-byebug
+  rake
   rom
   rom-sql
   slack-ruby-bot (~> 0.12.0)

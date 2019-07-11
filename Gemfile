@@ -10,6 +10,7 @@ gem "dotenv"
 gem "rom"
 gem "rom-sql"
 gem "pg"
+gem "rake"
 
 group :development do
   gem "pry-byebug"
