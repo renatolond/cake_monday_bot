@@ -1,4 +1,3 @@
-require "rom"
-require "rom-sql"
+require_relative "../../app/persistence/setup"
 
-$rom ||= ROM.container(:sql, ENV.fetch("DATABASE_URL"))
+Persistence.finalize
