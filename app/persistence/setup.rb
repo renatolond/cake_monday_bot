@@ -3,6 +3,8 @@
 require "rom"
 require "rom-sql"
 
+require_relative "repositories/candidates"
+
 module Persistence
   def self.config
     @config ||= ROM::Configuration.new(:sql, ENV.fetch("DATABASE_URL"))
