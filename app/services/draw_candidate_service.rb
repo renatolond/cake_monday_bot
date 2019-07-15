@@ -14,12 +14,14 @@ class DrawCandidateService
 
     candidate_ids = available_candidates.map { |candidate| candidate[:id] }
     chosen = candidate_ids.sample
-    while false && chosen == history_repository.last_selected_id
+    last_drawn = archives_repository.last_selected&.candidate_id
+    if chosen == last_drawn
       raise TooFewCandidates.new("Not enough candidates for sampling") if candidate_ids.size == 1
-      chosen = candidate_ids.sample
+      chosen = (candidate_ids - [chosen]).sample
     end
 
     candidates_repository.make_unavailable(chosen)
+    archives_repository.create(candidate_id: chosen, drawn_at: Time.now)
     chosen
   end
 
