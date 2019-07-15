@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DrawUserService
+class DrawCandidateService
   def draw
   end
 end
