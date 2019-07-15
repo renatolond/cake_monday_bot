@@ -3,7 +3,7 @@ ROM::SQL.migration do
     create_table :candidates do
       primary_key :id
       column :name, :varchar, null: false
-      column :available, :boolean, null: false
+      column :available, :boolean, null: false, default: true
     end
   end
 end

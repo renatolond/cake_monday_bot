@@ -28,7 +28,7 @@ class DrawCandidateService
       @candidates_repository ||= Persistence::Repositories::Candidates.new(Persistence.rom)
     end
 
-    def history_repository
-      nil
+    def archives_repository
+      @archive_repository ||= Persistence::Repositories::Archives.new(Persistence.rom)
     end
 end

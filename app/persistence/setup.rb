@@ -4,6 +4,7 @@ require "rom"
 require "rom-sql"
 
 require_relative "repositories/candidates"
+require_relative "repositories/archives"
 
 module Persistence
   def self.config
