@@ -24,7 +24,8 @@ class DrawCandidateService
       candidates_repository.make_unavailable(chosen)
       archives_repository.create(candidate_id: chosen, drawn_at: Time.now)
     end
-    chosen
+
+    candidates_repository.find(chosen)
   end
 
   private

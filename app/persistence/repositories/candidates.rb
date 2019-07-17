@@ -13,8 +13,12 @@ module Persistence
         candidates.command(:update).call(available: true)
       end
 
-      def make_unavailable(user_id)
-        candidates.by_pk(user_id).command(:update).call(available: false)
+      def make_unavailable(candidate_id)
+        candidates.by_pk(candidate_id).command(:update).call(available: false)
+      end
+
+      def find(candidate_id)
+        candidates.by_pk(candidate_id).one
       end
     end
   end
