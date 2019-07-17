@@ -20,8 +20,10 @@ class DrawCandidateService
       chosen = (candidate_ids - [chosen]).sample
     end
 
-    candidates_repository.make_unavailable(chosen)
-    archives_repository.create(candidate_id: chosen, drawn_at: Time.now)
+    candidates_repository.transaction do |t|
+      candidates_repository.make_unavailable(chosen)
+      archives_repository.create(candidate_id: chosen, drawn_at: Time.now)
+    end
     chosen
   end
 
