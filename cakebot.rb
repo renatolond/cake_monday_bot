@@ -12,7 +12,9 @@ class CakeBotCommands < Thor
   desc "draw", "Draw a user to bring cake and send a message to the configured channel"
   def draw
     candidate = DrawCandidateService.new.draw
-    puts candidate.name
+
+    web_client = Slack::Web::Client.new(token: ENV["SLACK_API_TOKEN"])
+    web_client.chat_postMessage(text: "Hey, #{candidate.name}, you bring the cake this week!", channel: "random")
   end
 
   desc "add NAME", "Adds a user to the database"
