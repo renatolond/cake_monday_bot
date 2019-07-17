@@ -11,6 +11,7 @@ gem "rom"
 gem "rom-sql"
 gem "pg"
 gem "rake"
+gem "thor"
 
 group :development do
   gem "pry-byebug"

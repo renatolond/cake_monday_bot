@@ -107,6 +107,7 @@ GEM
       gli
       hashie
       websocket-driver
+    thor (0.20.3)
     thread_safe (0.3.6)
     timers (4.3.0)
     transproc (1.0.3)
@@ -128,6 +129,7 @@ DEPENDENCIES
   rom
   rom-sql
   slack-ruby-bot (~> 0.12.0)
+  thor
 
 BUNDLED WITH
    1.17.2
