@@ -20,6 +20,11 @@ module Persistence
       def find(candidate_id)
         candidates.by_pk(candidate_id).one
       end
+
+      def last_drawn
+        id = Archives.new(Persistence.rom).last_selected.candidate_id
+        candidates.by_pk(id).one
+      end
     end
   end
 end

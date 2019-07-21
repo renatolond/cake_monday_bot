@@ -13,13 +13,18 @@ class CakeBotCommands < Thor
   def draw
     candidate = DrawCandidateService.new.draw
 
-    web_client = Slack::Web::Client.new(token: ENV["SLACK_API_TOKEN"])
     web_client.chat_postMessage(text: "Hey, @#{candidate.slack_at} #{candidate.name}, you bring the cake this week!", channel: "random", link_names: true)
+  end
+
+  desc "remind", "Send a reminder to the last drawn user to the configured channel"
+  def remind
+    candidate = candidates_repo.last_drawn
+
+    web_client.chat_postMessage(text: "Hey, @#{candidate.slack_at}, just to remind you. Monday you need to bring the cake!", channel: "random", link_names: true)
   end
 
   desc "add SLACK_AT NAME", "Adds a user to the database, pass the user @, like renatolond, and their name"
   def add(slack_at, *name)
-    candidates_repo = Persistence::Repositories::Candidates.new(Persistence.rom)
     name = name.join(" ")
     candidates_repo.create(slack_at: slack_at, name: name)
     puts "User #{name} added as @#{slack_at}"
@@ -31,6 +36,15 @@ class CakeBotCommands < Thor
   def start
     CakeBot.run
   end
+
+  private
+    def candidates_repo
+      @candidates_repo ||= Persistence::Repositories::Candidates.new(Persistence.rom)
+    end
+
+    def web_client
+      web_client ||= Slack::Web::Client.new(token: ENV["SLACK_API_TOKEN"])
+    end
 end
 
 CakeBotCommands.start(ARGV)
