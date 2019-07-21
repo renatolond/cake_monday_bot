@@ -32,4 +32,6 @@ group :development do
   gem "pronto"
   # Extra gem to add support for rubocop to pronto
   gem "pronto-rubocop"
+  # lefthook manages git hooks for the project
+  gem "lefthook"
 end
