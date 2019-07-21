@@ -15,14 +15,14 @@ class CakeBotCommands < Thor
   def draw
     candidate = DrawCandidateService.new.draw
 
-    web_client.chat_postMessage(text: "Hey, @#{candidate.slack_at} #{candidate.name}, you bring the cake this week!", channel: "random", link_names: true)
+    web_client.chat_postMessage(text: "Hey, @#{candidate.slack_at}, you bring the cake next week!", channel: slack_channel, link_names: true)
   end
 
   desc "remind", "Send a reminder to the last drawn user to the configured channel"
   def remind
     candidate = candidates_repo.last_drawn
 
-    web_client.chat_postMessage(text: "Hey, @#{candidate.slack_at}, just to remind you. Monday you need to bring the cake!", channel: "random", link_names: true)
+    web_client.chat_postMessage(text: "Hey, @#{candidate.slack_at}, just to remind you. Monday you need to bring the cake!", channel: slack_channel, link_names: true)
   end
 
   desc "add SLACK_AT NAME", "Adds a user to the database, pass the user @, like renatolond, and their name"
@@ -40,6 +40,11 @@ class CakeBotCommands < Thor
   end
 
   private
+
+    def slack_channel
+      @slack_channel ||= ENV.fetch("SLACK_CHANNEL", "random")
+    end
+
     def candidates_repo
       @candidates_repo ||= Persistence::Repositories::Candidates.new(Persistence.rom)
     end
