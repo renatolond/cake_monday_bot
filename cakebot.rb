@@ -15,14 +15,14 @@ class CakeBotCommands < Thor
   def draw
     candidate = DrawCandidateService.new.draw
 
-    web_client.chat_postMessage(text: "Hey, <@#{candidate.slack_at}>, you bring the cake next week!", channel: slack_channel, link_names: true)
+    web_client.chat_postMessage(text: "Hey, <@#{candidate.slack_at}>, you bring the cake next week!", channel: slack_channel, link_names: true, as_user: true)
   end
 
   desc "remind", "Send a reminder to the last drawn user to the configured channel"
   def remind
     candidate = candidates_repo.last_drawn
 
-    web_client.chat_postMessage(text: "Hey, <@#{candidate.slack_at}>, just to remind you. Monday you need to bring the cake!", channel: slack_channel, link_names: true)
+    web_client.chat_postMessage(text: "Hey, <@#{candidate.slack_at}>, just to remind you. Monday you need to bring the cake!", channel: slack_channel, link_names: true, as_user: true)
   end
 
   desc "add SLACK_AT NAME", "Adds a user to the database, pass the user @, like renatolond, and their name"
