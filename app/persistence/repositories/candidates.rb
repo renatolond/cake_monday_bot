@@ -23,6 +23,10 @@ module Persistence
         candidates.by_pk(candidate_id).one
       end
 
+      def find_by_slack_at(slack_at)
+        candidates.where(slack_at: slack_at).first
+      end
+
       def last_drawn
         id = Archives.new(Persistence.rom).last_selected.candidate_id
         candidates.by_pk(id).one
