@@ -99,7 +99,7 @@ GEM
       pry (~> 0.10)
     public_suffix (3.1.1)
     rainbow (3.0.0)
-    rake (12.3.2)
+    rake (12.3.3)
     rom (5.0.2)
       rom-changeset (~> 5.0, >= 5.0.1)
       rom-core (~> 5.0, >= 5.0.2)
