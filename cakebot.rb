@@ -12,17 +12,20 @@ require_relative "app/objects/cake_bot"
 
 class CakeBotCommands < Thor
   desc "draw", "Draw a user to bring cake and send a message to the configured channel"
-  def draw
-    candidate = DrawCandidateService.new.draw
+  def draw(tag_limit = 2)
+    tag_limit = tag_limit.to_i
+    tags = ""
+    candidate_list = DrawCandidateService.new.draw(tag_limit)
+    tags = build_tags_from_candidates(candidate_list)
 
-    web_client.chat_postMessage(text: "Hey, <@#{candidate.slack_at}>, you bring the cake next week!", channel: slack_channel, link_names: true, as_user: true)
+    web_client.chat_postMessage(text: "Hey, #{tags}, you bring a cake next week!", channel: slack_channel, link_names: true, as_user: true)
   end
 
   desc "remind", "Send a reminder to the last drawn user to the configured channel"
   def remind
-    candidate = candidates_repo.last_drawn
-
-    web_client.chat_postMessage(text: "Hey, <@#{candidate.slack_at}>, just to remind you. Monday you need to bring the cake!", channel: slack_channel, link_names: true, as_user: true)
+    candidates = candidates_repo.last_drawn
+    tags = build_tags_from_candidates(candidates)
+    web_client.chat_postMessage(text: "Hey, #{tags}, just to remind you. Tuesday you need to bring a cake!", channel: slack_channel, link_names: true, as_user: true)
   end
 
   desc "add SLACK_AT NAME", "Adds a user to the database, pass the user @, like renatolond, and their name"
@@ -43,6 +46,21 @@ class CakeBotCommands < Thor
 
     def slack_channel
       @slack_channel ||= ENV.fetch("SLACK_CHANNEL", "random")
+    end
+
+    def build_tags_from_candidates(candidate_list)
+      tags = ""
+      candidate_list.each_with_index do |candidate, index|
+        case index
+        when 0
+          tags += "<@#{candidate.slack_at}>"
+        when candidate_list.size - 1
+          tags += " and <@#{candidate.slack_at}>"
+        else
+          tags += " ,<@#{candidate.slack_at}>"
+        end
+      end
+      tags
     end
 
     def candidates_repo
