@@ -28,8 +28,8 @@ module Persistence
       end
 
       def last_drawn
-        id = Archives.new(Persistence.rom).last_selected.candidate_id
-        candidates.by_pk(id).one
+        ids = Archives.new(Persistence.rom).last_selected.map { |candidate| candidate[:candidate_id] }.uniq
+        candidates.by_pk(ids).to_a
       end
     end
   end

@@ -8,7 +8,7 @@ module Persistence
       commands :create, update: :by_pk, delete: :by_pk
 
       def last_selected
-        archives.order { drawn_at.desc }.first
+        archives.where(drawn_at: (Date.today - 7)..Time.now).order { drawn_at.desc }.to_a
       end
     end
   end
