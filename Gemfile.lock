@@ -160,7 +160,7 @@ GEM
     thread_safe (0.3.6)
     timers (4.3.0)
     transproc (1.0.3)
-    tzinfo (1.2.7)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
     websocket-driver (0.7.1)
